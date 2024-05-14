@@ -5,7 +5,8 @@ import { Artifika_400Regular, useFonts } from '@expo-google-fonts/artifika'
 import { Ionicons } from '@expo/vector-icons'
 import RestaurantCard from '../components/RestaurantCard'
 import axios from 'axios'
-import FeaturedRestaurants from '../components/FeaturedRows'
+import FeaturedRestaurants from '../components/FeaturedRestaurants'
+import FeaturedActivities from '../components/FeaturedActivities'
 
 const HomeScreen = () => {
 
@@ -33,7 +34,8 @@ const HomeScreen = () => {
                 {/* Featured restaurants */}
                 <FeaturedRestaurants />
 
-
+                <Text className='text-lg text-violet-900 mt-4' style={{ fontFamily: 'Artifika_400Regular' }}>Activities</Text>
+                <FeaturedActivities />
               
             </View>
             

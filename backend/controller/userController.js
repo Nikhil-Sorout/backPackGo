@@ -1,5 +1,6 @@
 const axios = require('axios');
 const dotenv = require('dotenv');
+const { response } = require('express');
 
 // @desc Nearby Restaurants
 // @route GET /api/places/restaurants
@@ -45,29 +46,84 @@ const nearbyRestaurantsPics = async (req, res, next) => {
     // console.log('Hey I got your request')
     // return res.status(200).json({message: "Hey I got the request"})
     console.log(req.params.id);
-    const fsq_id = req.params.id;
+    const fsq_id = await req.params.id;
     try {
-        const response = await axios.get(`https://api.foursquare.com/v3/places/${fsq_id}/photos?limit=1&sort=POPULAR&classification=indoor`,{
+        const response = await axios.get(`https://api.foursquare.com/v3/places/${fsq_id}/photos?limit=1&sort=POPULAR&classification=indoor`, {
             headers: {
                 accept: 'application/json',
                 Authorization: process.env.API_KEY
             }
         })
-        if(response.status===200)
-            {
-                const responseData = await response.data;
-                return res.status(200).json(responseData);
+        if (response.status === 200) {
+            const responseData = response.data;
+            return res.status(200).json(responseData);
+        }
+        else {
+            return res.status(response.status).json({ error: "Non-200 status code recieved" })
+        }
+    }
+    catch (err) {
+        console.log('Error: ', err.message);
+        return res.status(500).json({ error: 'Internal Server Error' })
+    }
+}
+
+// @desc nearby activities
+// @route GET /api/places/activities
+// @access public
+const nearbyActivities = async (req, res, next) => {
+    try {
+        const response = await axios.get('https://api.foursquare.com/v3/places/search?categories=10000',{
+            headers:{
+                accept: 'application/json',
+                Authorization: process.env.API_KEY
             }
-        else{
-            return res.status(response.status).json({error: "Non-200 status code recieved"})
+        })
+        if (response.status == 200) {
+            const responseData = response.data
+            return res.json(responseData).status(response.status)
+        }
+        else
+        {
+            return res.status(response.status).json({message: 'Non-200 status code recieved'})
         }
     }
     catch(err)
     {
-        console.log('Error: ',err.message);
         return res.status(500).json({error: 'Internal Server Error'})
     }
 }
 
+// @desc nearby activities pics
+// @route GET /api/places/activities/pics
+// @access public
 
-module.exports = { nearbyRestaurants, nearbyRestaurantsPics };
+const nearbyActivitiesPics = async(req,res,next)=>{
+    try{
+        const fsq_id = await req.params.id;
+        const response = await axios.get(`https://api.foursquare.com/v3/places/${fsq_id}/photos?limit=1&sort=POPULAR&classification=indoor`,
+            {
+                headers:{
+                    accept: 'application/json',
+                    Authorization: process.env.API_KEY
+                }
+            }
+        )
+        if(response.status == 200)
+            {
+                const responseData = response.data;
+                return res.status(200).json(responseData);
+            }
+        else{
+            return res.status(response.status).json({error: 'Non-200 status code recieved'})
+        }
+    }
+    catch(err)
+    {
+        return res.status(500).json({err: 'Internal Server Error'})
+    }
+}
+
+module.exports = { nearbyRestaurants, nearbyRestaurantsPics, nearbyActivities ,nearbyActivitiesPics
+    
+};

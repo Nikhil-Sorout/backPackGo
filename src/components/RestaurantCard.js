@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 const RestaurantCard = ({ id, name, address, prefix_icon, suffix_icon, categories, geocodes, location }) => {
-    const [imgData, setImgData] = useState([]);
+    // const [imgData, setImgData] = useState([]);
     const [img, setImg] = useState();
     useEffect(() => {
         const fetchPics = async () => {
@@ -18,10 +18,6 @@ const RestaurantCard = ({ id, name, address, prefix_icon, suffix_icon, categorie
                     // checking if the data is null or not and then setting the img state
                     if (data.prefix && data.suffix) {
                         setImg({ uri: data.prefix + '144x176' + data.suffix })
-                    }
-                    // using icons otherwise
-                    else {
-                        setImg({ uri: prefix_icon + 'bg_120' + suffix_icon })
                     }
 
                 }
@@ -38,7 +34,7 @@ const RestaurantCard = ({ id, name, address, prefix_icon, suffix_icon, categorie
 
 
     return (
-        <TouchableOpacity className='h-48 w-40 rounded-lg mr-2'>
+        <TouchableOpacity className='h-48 w-40 rounded-lg mr-2 '>
             {/* If the image is available */}
             {img && <Image source={img} className=' h-full w-full rounded-lg' />}
             {/* If the image is not available */}
