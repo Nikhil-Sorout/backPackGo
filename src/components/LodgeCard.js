@@ -2,16 +2,16 @@ import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-nati
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-const RestaurantCard = ({ id, name, address, prefix_icon, suffix_icon, categories, geocodes, location }) => {
-    // const [imgData, setImgData] = useState([]);
+
+const LodgeCard = ({ id, name, address, prefix_icon, suffix_icon, categories, geocodes, location }) => {
     const [img, setImg] = useState();
     useEffect(() => {
         const fetchPics = async () => {
             try {
-                const response = await axios.get(`http://192.168.1.7:5001/api/places/restaurants/pics/${id}`)
+                const response = await axios.get(`http://192.168.1.7:5001/api/places/lodges/pics/${id}`)
 
                 if (response.status == 200 && response.data.length > 0) {
-            
+
                     // directly using the fetched data
                     const data = response.data[0];
 
@@ -31,8 +31,6 @@ const RestaurantCard = ({ id, name, address, prefix_icon, suffix_icon, categorie
     }, [])
     // alternate if the image is not available i.e icons
     const altImg = { uri: prefix_icon + 'bg_120' + suffix_icon }
-
-
     return (
         <TouchableOpacity className='h-48 w-40 rounded-lg mr-2 ' style={{elevation:5,shadowColor:'darkviolet'}}>
             {/* If the image is available */}
@@ -42,10 +40,7 @@ const RestaurantCard = ({ id, name, address, prefix_icon, suffix_icon, categorie
             <Text className='font-bold text-md bottom-20 left-1 text-white'>{name}</Text>
             <Text className='text-xs text-white left-1 bottom-20'>{address}</Text>
         </TouchableOpacity>
-
-
-
     )
 }
 
-export default RestaurantCard
+export default LodgeCard

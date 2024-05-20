@@ -7,11 +7,11 @@ const FeaturedActivities = () => {
     
     const fetchData = async()=>{
         try{
-            const response = await axios.get('http://192.168.1.4:5001/api/places/activities')
+            const response = await axios.get('http://192.168.1.7:5001/api/places/activities')
             if(response.status == 200)
                 {
                     const responseData = response.data;
-                    console.log(responseData.results);
+                    // console.log(responseData.results);
                     setActData(responseData.results);
                 }
             else{
@@ -33,7 +33,7 @@ const FeaturedActivities = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
                 paddingHorizontal: 0,
-                paddingTop: 10
+                paddingVertical: 10
             }}>
             {actData.map((activity) =>
             (

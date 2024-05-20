@@ -10,10 +10,10 @@ const ActitvityCard = ({ id, name, address, prefix_icon, suffix_icon, categories
     useEffect(() => {
         const fetchPics = async () => {
             try {
-                const response = await axios(`http://192.168.1.4:5001/api/places/activities/pics/${id}`)
+                const response = await axios(`http://192.168.1.7:5001/api/places/activities/pics/${id}`)
                 if (response.status == 200) {
                     const responseData = response.data[0];
-                    console.log(response.data[0]);
+                    // console.log(response.data[0]);
                     if (responseData.prefix && responseData.suffix) {
                         setImg({ uri: responseData.prefix + '144x176' + responseData.suffix })
                     }
@@ -34,7 +34,7 @@ const ActitvityCard = ({ id, name, address, prefix_icon, suffix_icon, categories
     console.log('AltImg: ', altImg)
 
     return (
-        <TouchableOpacity className='h-48 w-40 rounded-lg mr-2'>
+        <TouchableOpacity className='h-48 w-40 rounded-lg mr-2' style={{elevation:5,shadowColor:'darkviolet'}}>
             {/* If the image is available */}
             {img && <Image source={img} className=' h-full w-full rounded-lg' />}
             {/* If the image is not available */}

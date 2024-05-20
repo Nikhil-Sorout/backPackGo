@@ -9,10 +9,10 @@ const FeaturedRestaurants = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.1.4:5001/api/places/restaurants')
+                const response = await axios.get('http://192.168.1.7:5001/api/places/restaurants')
                 if (response.status == 200) {
                     setRestaurantData(response.data.results);
-                    console.log(response.data.results);
+                    // console.log(response.data.results);
                 }
                 else {
                     console.log('Unable to fetch data: ', response.error)
@@ -30,7 +30,7 @@ const FeaturedRestaurants = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
                 paddingHorizontal: 0,
-                paddingTop: 10
+                paddingVertical: 10
             }}>
             {restaurantData.map((restaurant) =>
             (

@@ -7,6 +7,9 @@ import RestaurantCard from '../components/RestaurantCard'
 import axios from 'axios'
 import FeaturedRestaurants from '../components/FeaturedRestaurants'
 import FeaturedActivities from '../components/FeaturedActivities'
+import FeaturedLodge from '../components/FeaturedLodge'
+import SearchBar from '../components/SearchBar'
+
 
 const HomeScreen = () => {
 
@@ -19,26 +22,39 @@ const HomeScreen = () => {
     }
 
     return (
-        <View className='items-center justify-center bg-gray-100'>
+        <View className='flex-1 items-center justify-center bg-gray-100'>
+            
+            {/* Background Image : Home Page */}
             <ImageBackground source={require('../../assets/homePagePic.jpg')} className='w-full h-72'>
                 <Text className='text-white text-4xl left-2 top-16' style={{ fontFamily: "Artifika_400Regular" }}>Discover.{"\n"}<Text className='text-violet-900'>Plan.</Text>{"\n"}Wander.{"\n"}Your  <Text className='text-violet-900'>perfect{"\n"}</Text>trip, simplified.</Text>
             </ImageBackground>
 
-            <View className='items-start justify-center p-4 bottom-4 bg-gray-200 w-11/12 rounded-xl' style={{ elevation: 4, shadowColor: 'darkviolet' }}>
-                <TextInput placeholder='Searh for exciting places or activities nearby' className='' />
-            </View>
+            {/* Search bar */}
+
+            <SearchBar />
+
+
             {/* Suggestions based on location of user */}
-            {/* Restaurants */}
-            <View className='bg-gray-100 w-full p-2'>
-                <Text className='text-lg text-violet-900' style={{ fontFamily: 'Artifika_400Regular' }}>Restaurants</Text>
+
+            <ScrollView className="" verical contentContainerStyle={{
+                paddingHorizontal: 8,
+                paddingVertical: 5
+            }}>
+                {/* Featured Activities */}
+                <Text className='text-lg text-violet-900' style={{ fontFamily: 'Artifika_400Regular' }}>Activities</Text>
+                <FeaturedActivities />
+
                 {/* Featured restaurants */}
+                <Text className='text-lg text-violet-900 mt-4' style={{ fontFamily: 'Artifika_400Regular' }}>Restaurants</Text>
                 <FeaturedRestaurants />
 
-                <Text className='text-lg text-violet-900 mt-4' style={{ fontFamily: 'Artifika_400Regular' }}>Activities</Text>
-                <FeaturedActivities />
-              
-            </View>
-            
+
+                {/* Featured Lodges */}
+                <Text className='text-lg text-violet-900 mt-4' style={{ fontFamily: 'Artifika_400Regular' }}>Lodges</Text>
+                <FeaturedLodge />
+
+            </ScrollView>
+
         </View>
     )
 }
